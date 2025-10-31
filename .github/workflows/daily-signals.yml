@@ -87,22 +87,9 @@ jobs:
           fi
 
       - name: Send Telegram message
-        if: ${{ secrets.TELEGRAM_TOKEN && secrets.TELEGRAM_CHAT_ID }}
         uses: appleboy/telegram-action@v0.1.1
         with:
           to: ${{ secrets.TELEGRAM_CHAT_ID }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: ${{ steps.summarize.outputs.msg }}
           document: outputs/report.html
-
-      # 邮件和飞书推送已移除，仅保留Telegram
-
-      - name: Send Feishu/Lark message (optional)
-        if: ${{ secrets.FEISHU_WEBHOOK != '' }}
-        shell: bash
-        run: |
-          esc_msg=$(printf %s "${{ steps.summarize.outputs.msg }}" | sed 's/"/\\"/g')
-          curl -s -X POST \
-            -H 'Content-Type: application/json' \
-            -d "{\"msg_type\":\"text\",\"content\":{\"text\":\"${esc_msg}\"}}" \
-            "${{ secrets.FEISHU_WEBHOOK }}"
