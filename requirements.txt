@@ -1,0 +1,8 @@
+papermill
+jupyter
+pandas
+numpy
+yfinance
+statsmodels
+scipy
+matplotlib

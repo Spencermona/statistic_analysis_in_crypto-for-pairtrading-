@@ -1,0 +1,124 @@
+name: Daily Signals and Backtest
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    # Runs at 01:00 UTC every day (09:00 Beijing/Asia/Shanghai)
+    - cron: '0 1 * * *'
+
+permissions:
+  contents: write  # allow committing reports back to the repo
+
+jobs:
+  run-notebook:
+    runs-on: ubuntu-latest
+    env:
+      TZ: Asia/Shanghai
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install papermill jupyter nbconvert
+
+      - name: Ensure outputs folder
+        run: |
+          mkdir -p outputs
+
+      - name: Execute notebook (papermill)
+        run: |
+          papermill statistic_analysis.ipynb outputs/statistic_analysis_output.ipynb --kernel python3
+
+      - name: Export HTML report
+        run: |
+          jupyter nbconvert --to html outputs/statistic_analysis_output.ipynb --output report.html --output-dir outputs
+
+      - name: Summarize signals
+        id: summarize
+        shell: bash
+        run: |
+          python .github/workflows/summarize.py
+          # set step output for reuse
+          echo "msg<<EOF" >> $GITHUB_OUTPUT
+          cat outputs/summary.txt >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: signals-and-report
+          path: |
+            signals_multi.json
+            signal_latest.json
+            outputs/report.html
+            outputs/summary.txt
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Commit daily report into repo
+        shell: bash
+        run: |
+          set -e
+          DATE=$(date +"%Y-%m-%d")
+          DEST="reports/${DATE}"
+          mkdir -p "$DEST"
+          cp -f signals_multi.json "$DEST" 2>/dev/null || true
+          cp -f signal_latest.json "$DEST" 2>/dev/null || true
+          cp -f outputs/report.html "$DEST" 2>/dev/null || true
+          cp -f outputs/summary.txt "$DEST" 2>/dev/null || true
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$DEST" || true
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(reports): daily signals and report for ${DATE}"
+            git push
+          else
+            echo "No changes to commit."
+          fi
+
+      - name: Send Telegram message (optional)
+        if: ${{ secrets.TELEGRAM_TOKEN != '' && secrets.TELEGRAM_CHAT_ID != '' }}
+        uses: appleboy/telegram-action@v0.1.1
+        with:
+          to: ${{ secrets.TELEGRAM_CHAT_ID }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: ${{ steps.summarize.outputs.msg }}
+          document: outputs/report.html
+
+      - name: Send Email (optional)
+        if: ${{ secrets.SMTP_HOST != '' && secrets.SMTP_FROM != '' && secrets.SMTP_TO != '' && secrets.SMTP_USERNAME != '' && secrets.SMTP_PASSWORD != '' }}
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: ${{ secrets.SMTP_HOST }}
+          server_port: ${{ secrets.SMTP_PORT || 465 }}
+          secure: true
+          username: ${{ secrets.SMTP_USERNAME }}
+          password: ${{ secrets.SMTP_PASSWORD }}
+          subject: Daily Signals and Backtest Report
+          from: ${{ secrets.SMTP_FROM }}
+          to: ${{ secrets.SMTP_TO }}
+          body: ${{ steps.summarize.outputs.msg }}
+          convert_markdown: false
+          attachments: |
+            signals_multi.json
+            outputs/report.html
+
+      - name: Send Feishu/Lark message (optional)
+        if: ${{ secrets.FEISHU_WEBHOOK != '' }}
+        shell: bash
+        run: |
+          esc_msg=$(printf %s "${{ steps.summarize.outputs.msg }}" | sed 's/"/\\"/g')
+          curl -s -X POST \
+            -H 'Content-Type: application/json' \
+            -d "{\"msg_type\":\"text\",\"content\":{\"text\":\"${esc_msg}\"}}" \
+            "${{ secrets.FEISHU_WEBHOOK }}"

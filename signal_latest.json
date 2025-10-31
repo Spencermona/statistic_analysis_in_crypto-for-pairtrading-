@@ -1,0 +1,33 @@
+{
+  "meta": {
+    "source": "statistic_analysis.ipynb",
+    "version": 2
+  },
+  "signal": {
+    "as_of_utc": "2025-10-31 20:58:43 UTC",
+    "base": "ETH-USD",
+    "candidate": "BCH-USD",
+    "beta": 0.1197428206273158,
+    "z_now": 0.5652726997320922,
+    "z_enter": 2.0,
+    "z_exit": 0.5,
+    "z_stop": 3.0,
+    "time_stop_days": 29,
+    "notional_abs_usd": 0.2610907989283686,
+    "sizing_mode": "linear",
+    "status": "no-trade",
+    "direction_preview": "long_cand_short_base",
+    "usd_preview": {
+      "cand": 0.23,
+      "base": -0.03
+    },
+    "weights_abs": {
+      "cand": 0.893062,
+      "base": 0.106938
+    },
+    "px": {
+      "cand": 541.5377807617188,
+      "base": 3804.375244140625
+    }
+  }
+}

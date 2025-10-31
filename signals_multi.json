@@ -1,0 +1,155 @@
+{
+  "meta": {
+    "as_of_utc": "2025-10-31 20:58:44 UTC",
+    "source": "statistic_analysis.ipynb",
+    "version": 1
+  },
+  "results": [
+    {
+      "signal": {
+        "base": "BTC-USD",
+        "candidate": "TRX-USD",
+        "beta": 2.960038943532029e-06,
+        "z_now": 0.2140290912559579,
+        "half_life_days": 10.569730156894579,
+        "time_stop_days": 11,
+        "notional_abs_usd": 0.0,
+        "usd": {
+          "cand": 0.0,
+          "base": -0.0
+        },
+        "weights_abs": {
+          "cand": 0.999997,
+          "base": 3e-06
+        },
+        "entry_rule": "|z|>=2.0",
+        "exit_rule": "|z|<=0.5",
+        "hard_stop": "|z|>=3.0",
+        "sizing_mode": "linear",
+        "log_price": false,
+        "status": "no-trade",
+        "direction": "no-trade"
+      },
+      "backtest": {
+        "total_return": -0.8900769240671561,
+        "ann_return": -0.5191105407598783,
+        "ann_vol": 0.5637477066192603,
+        "sharpe": -0.9208206697157728,
+        "max_dd": 0.9344584641469644,
+        "trades": 5,
+        "avg_holding_days": 10.0,
+        "trades_table": [
+          {
+            "entry": "2024-05-25",
+            "exit": "2024-06-05",
+            "reason": "time_stop",
+            "holding": 11
+          },
+          {
+            "entry": "2024-06-06",
+            "exit": "2024-06-17",
+            "reason": "time_stop",
+            "holding": 11
+          },
+          {
+            "entry": "2024-11-11",
+            "exit": "2024-11-22",
+            "reason": "time_stop",
+            "holding": 11
+          },
+          {
+            "entry": "2024-12-03",
+            "exit": "2024-12-09",
+            "reason": "revert",
+            "holding": 6
+          },
+          {
+            "entry": "2025-08-24",
+            "exit": "2025-09-04",
+            "reason": "time_stop",
+            "holding": 11
+          }
+        ]
+      }
+    },
+    {
+      "signal": {
+        "base": "ETH-USD",
+        "candidate": "BCH-USD",
+        "beta": 0.1197428206273158,
+        "z_now": 0.5652726997320922,
+        "half_life_days": 28.387100607113695,
+        "time_stop_days": 28,
+        "notional_abs_usd": 0.26,
+        "usd": {
+          "cand": 0.23,
+          "base": -0.03
+        },
+        "weights_abs": {
+          "cand": 0.893062,
+          "base": 0.106938
+        },
+        "entry_rule": "|z|>=2.0",
+        "exit_rule": "|z|<=0.5",
+        "hard_stop": "|z|>=3.0",
+        "sizing_mode": "linear",
+        "log_price": false,
+        "status": "no-trade",
+        "direction": "no-trade"
+      },
+      "backtest": {
+        "total_return": 0.9801675691250955,
+        "ann_return": 0.2542384721961406,
+        "ann_vol": 0.349809446196141,
+        "sharpe": 0.7267913287098228,
+        "max_dd": 0.165826110234633,
+        "trades": 7,
+        "avg_holding_days": 9.428571428571429,
+        "trades_table": [
+          {
+            "entry": "2024-02-20",
+            "exit": "2024-03-03",
+            "reason": "revert",
+            "holding": 12
+          },
+          {
+            "entry": "2024-03-29",
+            "exit": "2024-04-02",
+            "reason": "hard_stop",
+            "holding": 4
+          },
+          {
+            "entry": "2024-04-03",
+            "exit": "2024-04-04",
+            "reason": "hard_stop",
+            "holding": 1
+          },
+          {
+            "entry": "2024-04-05",
+            "exit": "2024-04-06",
+            "reason": "hard_stop",
+            "holding": 1
+          },
+          {
+            "entry": "2024-04-07",
+            "exit": "2024-04-09",
+            "reason": "hard_stop",
+            "holding": 2
+          },
+          {
+            "entry": "2024-04-10",
+            "exit": "2024-04-28",
+            "reason": "revert",
+            "holding": 18
+          },
+          {
+            "entry": "2025-06-19",
+            "exit": "2025-07-17",
+            "reason": "time_stop",
+            "holding": 28
+          }
+        ]
+      }
+    }
+  ]
+}
