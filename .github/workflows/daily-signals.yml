@@ -86,8 +86,8 @@ jobs:
             echo "No changes to commit."
           fi
 
-      - name: Send Telegram message (optional)
-        if: ${{ secrets.TELEGRAM_TOKEN != '' && secrets.TELEGRAM_CHAT_ID != '' }}
+      - name: Send Telegram message
+        if: ${{ secrets.TELEGRAM_TOKEN && secrets.TELEGRAM_CHAT_ID }}
         uses: appleboy/telegram-action@v0.1.1
         with:
           to: ${{ secrets.TELEGRAM_CHAT_ID }}
@@ -95,23 +95,7 @@ jobs:
           message: ${{ steps.summarize.outputs.msg }}
           document: outputs/report.html
 
-      - name: Send Email (optional)
-        if: ${{ secrets.SMTP_HOST != '' && secrets.SMTP_FROM != '' && secrets.SMTP_TO != '' && secrets.SMTP_USERNAME != '' && secrets.SMTP_PASSWORD != '' }}
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: ${{ secrets.SMTP_HOST }}
-          server_port: ${{ secrets.SMTP_PORT || 465 }}
-          secure: true
-          username: ${{ secrets.SMTP_USERNAME }}
-          password: ${{ secrets.SMTP_PASSWORD }}
-          subject: Daily Signals and Backtest Report
-          from: ${{ secrets.SMTP_FROM }}
-          to: ${{ secrets.SMTP_TO }}
-          body: ${{ steps.summarize.outputs.msg }}
-          convert_markdown: false
-          attachments: |
-            signals_multi.json
-            outputs/report.html
+      # 邮件和飞书推送已移除，仅保留Telegram
 
       - name: Send Feishu/Lark message (optional)
         if: ${{ secrets.FEISHU_WEBHOOK != '' }}
