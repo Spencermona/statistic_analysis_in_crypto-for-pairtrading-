@@ -1,0 +1,59 @@
+name: Daily Crypto Pair Trading Analysis
+
+on:
+  schedule:
+    # 每天美东时间上午9:00运行 (UTC 14:00 或 13:00，取决于夏令时)
+    # 使用 UTC 14:00，对应美东标准时间 9:00 AM (EST)
+    - cron: '0 14 * * *'
+  workflow_dispatch:  # 允许手动触发
+
+jobs:
+  run-analysis:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pandas numpy yfinance statsmodels scipy matplotlib
+        
+    - name: Run crypto pair trading analysis
+      run: |
+        python crypto_pair_trading_analysis.py
+        
+    - name: Configure Git
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        
+    - name: Commit and push results
+      run: |
+        git add -A
+        if git diff --staged --quiet; then
+          echo "No changes to commit"
+        else
+          git commit -m "Auto-update: Daily crypto pair trading analysis $(date -u +'%Y-%m-%d %H:%M UTC')"
+          git push
+        fi
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: analysis-results-${{ github.run_number }}
+        path: |
+          *.csv
+          *.json
+          *.png
+        retention-days: 30
