@@ -456,11 +456,11 @@ def plot_pair_analysis(base: str, cand: str, prices_df: pd.DataFrame,
              label=base, linewidth=2, color='blue')
     ax1.plot(df_pair.index, df_pair[cand] / df_pair[cand].iloc[0], 
              label=cand, linewidth=2, color='orange')
-    ax1.set_title(f"价格对比: {base} vs {cand} (beta={beta:.3f}, corr={corr:.3f})", 
+    ax1.set_title(f"Price Comparison: {base} vs {cand} (beta={beta:.3f}, corr={corr:.3f})", 
                   fontsize=14, fontweight='bold')
     ax1.legend(loc='upper left', fontsize=12)
     ax1.grid(alpha=0.3)
-    ax1.set_ylabel('标准化价格', fontsize=11)
+    ax1.set_ylabel('Normalized Price', fontsize=11)
     
     # Z-score
     ax2.plot(z_series.index, z_series, color='purple', linewidth=1.5, label='Z-score')
@@ -472,11 +472,11 @@ def plot_pair_analysis(base: str, cand: str, prices_df: pd.DataFrame,
     ax2.axhline(Z_STOP, color='darkred', linewidth=1, linestyle=':', alpha=0.7, label=f'Stop (±{Z_STOP})')
     ax2.axhline(-Z_STOP, color='darkred', linewidth=1, linestyle=':', alpha=0.7)
     ax2.fill_between(z_series.index, -Z_ENTER, Z_ENTER, alpha=0.1, color='green')
-    ax2.set_title("残差 Z-score", fontsize=14, fontweight='bold')
+    ax2.set_title("Residual Z-score", fontsize=14, fontweight='bold')
     ax2.legend(loc='upper left', fontsize=10)
     ax2.grid(alpha=0.3)
     ax2.set_ylabel('Z-score', fontsize=11)
-    ax2.set_xlabel('日期', fontsize=11)
+    ax2.set_xlabel('Date', fontsize=11)
     
     plt.tight_layout()
     plt.savefig(save_path, dpi=150, bbox_inches='tight')
@@ -493,30 +493,30 @@ def plot_backtest_results(base: str, cand: str, backtest_res: dict, save_path: s
     # 权益曲线
     equity = backtest_res['equity']
     ax1.plot(equity.index, equity.values, linewidth=2, color='green')
-    ax1.set_title(f"回测权益曲线: {base} vs {cand}", fontsize=14, fontweight='bold')
+    ax1.set_title(f"Backtest Equity Curve: {base} vs {cand}", fontsize=14, fontweight='bold')
     ax1.grid(alpha=0.3)
-    ax1.set_ylabel('权益', fontsize=11)
+    ax1.set_ylabel('Equity', fontsize=11)
     ax1.axhline(1.0, color='gray', linestyle='--', alpha=0.5)
     
     # 回撤
     dd = backtest_res['drawdown']
     ax2.plot(dd.index, dd.values, color='crimson', linewidth=2)
     ax2.fill_between(dd.index, 0, dd.values, color='crimson', alpha=0.3)
-    ax2.set_title("回撤", fontsize=14, fontweight='bold')
+    ax2.set_title("Drawdown", fontsize=14, fontweight='bold')
     ax2.grid(alpha=0.3)
-    ax2.set_ylabel('回撤', fontsize=11)
-    ax2.set_xlabel('日期', fontsize=11)
+    ax2.set_ylabel('Drawdown', fontsize=11)
+    ax2.set_xlabel('Date', fontsize=11)
     
     # 添加KPI文本
     kpis = backtest_res['kpis']
     kpi_text = (
-        f"总回报: {kpis['total_return']:.2%}\n"
-        f"年化回报: {kpis['ann_return']:.2%}\n"
-        f"年化波动: {kpis['ann_vol']:.2%}\n"
-        f"夏普比率: {kpis['sharpe']:.2f}\n"
-        f"最大回撤: {kpis['max_dd']:.2%}\n"
-        f"交易次数: {kpis['trades']}\n"
-        f"平均持仓: {kpis['avg_holding_days']:.1f}天"
+        f"Total Return: {kpis['total_return']:.2%}\n"
+        f"Ann. Return: {kpis['ann_return']:.2%}\n"
+        f"Ann. Vol: {kpis['ann_vol']:.2%}\n"
+        f"Sharpe Ratio: {kpis['sharpe']:.2f}\n"
+        f"Max Drawdown: {kpis['max_dd']:.2%}\n"
+        f"Trades: {kpis['trades']}\n"
+        f"Avg Holding: {kpis['avg_holding_days']:.1f} days"
     )
     ax1.text(0.02, 0.98, kpi_text, transform=ax1.transAxes, 
              fontsize=10, verticalalignment='top',
