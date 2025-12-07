@@ -1,9 +1,9 @@
 {
-  "timestamp": "2025-12-06 14:07 UTC",
+  "timestamp": "2025-12-07 14:08 UTC",
   "base": "BTC-USD",
   "candidate": "TRX-USD",
   "beta": 0.0,
-  "z_current": 0.4113,
+  "z_current": 0.4115,
   "half_life_days": 26.0,
   "direction": "No trade (|z| below entry)",
   "position_candidate": "FLAT",
@@ -13,6 +13,6 @@
   "entry_threshold": 2.0,
   "exit_threshold": 0.5,
   "stop_loss_threshold": 3.0,
-  "time_stop_days": 27,
-  "time_stop_months": 1.29
+  "time_stop_days": 26,
+  "time_stop_months": 1.24
 }
