@@ -1,10 +1,10 @@
 {
-  "timestamp": "2025-12-28 14:08 UTC",
+  "timestamp": "2025-12-29 14:10 UTC",
   "base": "BTC-USD",
   "candidate": "TRX-USD",
   "beta": 0.0,
-  "z_current": 0.4156,
-  "half_life_days": 26.92,
+  "z_current": 0.4158,
+  "half_life_days": 26.97,
   "direction": "No trade (|z| below entry)",
   "position_candidate": "FLAT",
   "position_base": "FLAT",
