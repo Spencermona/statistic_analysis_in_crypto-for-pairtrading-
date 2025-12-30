@@ -1,10 +1,10 @@
 {
-  "timestamp": "2025-12-29 14:10 UTC",
+  "timestamp": "2025-12-30 14:09 UTC",
   "base": "ETH-USD",
-  "candidate": "FTM-USD",
-  "beta": 0.0004,
-  "z_current": 0.404,
-  "half_life_days": 68.96,
+  "candidate": "DOGE-USD",
+  "beta": 0.0001,
+  "z_current": -0.0203,
+  "half_life_days": 47.35,
   "direction": "No trade (|z| below entry)",
   "position_candidate": "FLAT",
   "position_base": "FLAT",
@@ -13,6 +13,6 @@
   "entry_threshold": 2.0,
   "exit_threshold": 0.5,
   "stop_loss_threshold": 3.0,
-  "time_stop_days": 69,
-  "time_stop_months": 3.29
+  "time_stop_days": 48,
+  "time_stop_months": 2.29
 }
