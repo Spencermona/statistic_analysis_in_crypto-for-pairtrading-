@@ -1,10 +1,10 @@
 {
-  "timestamp": "2026-01-21 14:16 UTC",
+  "timestamp": "2026-01-22 14:16 UTC",
   "base": "BTC-USD",
-  "candidate": "TRX-USD",
+  "candidate": "XRP-USD",
   "beta": 0.0,
-  "z_current": 0.4217,
-  "half_life_days": 27.93,
+  "z_current": 0.2274,
+  "half_life_days": 76.0,
   "direction": "No trade (|z| below entry)",
   "position_candidate": "FLAT",
   "position_base": "FLAT",
@@ -13,6 +13,6 @@
   "entry_threshold": 2.0,
   "exit_threshold": 0.5,
   "stop_loss_threshold": 3.0,
-  "time_stop_days": 28,
-  "time_stop_months": 1.33
+  "time_stop_days": 77,
+  "time_stop_months": 3.67
 }
