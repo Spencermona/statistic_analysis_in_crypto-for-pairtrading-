@@ -1,10 +1,10 @@
 {
-  "timestamp": "2026-01-29 14:21 UTC",
+  "timestamp": "2026-01-30 14:18 UTC",
   "base": "ETH-USD",
   "candidate": "DOGE-USD",
   "beta": 0.0001,
-  "z_current": -0.8632,
-  "half_life_days": 49.05,
+  "z_current": -0.7892,
+  "half_life_days": 48.96,
   "direction": "No trade (|z| below entry)",
   "position_candidate": "FLAT",
   "position_base": "FLAT",
@@ -13,6 +13,6 @@
   "entry_threshold": 2.0,
   "exit_threshold": 0.5,
   "stop_loss_threshold": 3.0,
-  "time_stop_days": 50,
-  "time_stop_months": 2.38
+  "time_stop_days": 49,
+  "time_stop_months": 2.33
 }
