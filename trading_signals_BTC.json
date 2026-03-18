@@ -1,9 +1,9 @@
 {
-  "timestamp": "2026-03-17 14:34 UTC",
+  "timestamp": "2026-03-18 14:38 UTC",
   "base": "BTC-USD",
   "candidate": "XRP-USD",
   "beta": 0.0,
-  "z_current": 0.0331,
+  "z_current": 0.0233,
   "half_life_days": 75.41,
   "direction": "No trade (|z| below entry)",
   "position_candidate": "FLAT",
