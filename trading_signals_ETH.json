@@ -1,10 +1,10 @@
 {
-  "timestamp": "2026-04-13 14:42 UTC",
+  "timestamp": "2026-04-14 14:42 UTC",
   "base": "ETH-USD",
   "candidate": "DOGE-USD",
   "beta": 0.0001,
-  "z_current": -0.5473,
-  "half_life_days": 48.79,
+  "z_current": -0.6812,
+  "half_life_days": 48.91,
   "direction": "No trade (|z| below entry)",
   "position_candidate": "FLAT",
   "position_base": "FLAT",
